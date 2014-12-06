@@ -37,7 +37,7 @@ func Text(b []byte) []byte {
 	// Convert to slice of runes
 	n := len(b)
 	if n == 0 {
-		return ``
+		return b
 	}
 	para := make([][][]rune, 0, 1)
 	sent := make([][]rune, 0, 1)
