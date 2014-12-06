@@ -82,6 +82,7 @@ func Text(b []byte) []byte {
 	
 	// Write it back
 	buf := bytes.NewBuffer(make([]byte, 0, 20))
+	var i2 int
 	for i, sent = range para {
 		if i > 0 {
 			buf.WriteByte(10)
