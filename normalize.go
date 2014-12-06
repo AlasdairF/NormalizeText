@@ -146,22 +146,20 @@ func Text(b []byte) []byte {
 		
 			// Calculate the casing type of the word
 			r = word[0]
+			othercap = false
 			if unicode.IsLetter(r) {
 				anyletter = true
 				if unicode.IsUpper(r) || unicode.IsTitle(r) {
 					allcaps = true
 					firstcap = true
-					othercap = true
 				} else {
 					allcaps = false
 					firstcap = false
-					othercap = false
 				}
 			} else {
 				anyletter = false
 				allcaps = false
 				firstcap = false
-				othercap = false
 			}
 			for _, r = range word {
 				if unicode.IsLetter(r) {
