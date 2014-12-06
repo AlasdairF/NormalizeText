@@ -26,6 +26,21 @@ func isException(runes []rune) bool {
 	if len(runes) < 3 {
 		return true
 	}
+	allroman := true
+	for _, r = range word {
+		if unicode.IsLetter(r) {
+			switch r {
+				case 'I', 'V', 'X', 'M', 'C', 'D', 'L':
+					continue
+				default:
+					allroman = false
+					break
+			}
+		}
+	}
+	if allroman {
+		return true
+	}
 	switch string(runes) {
 		case `ABC`, `USA`, `USSR`, `YMCA`, `RAF`, `USAF`, `USCG`, `USMC`, `USN`:
 			return true
