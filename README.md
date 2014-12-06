@@ -16,6 +16,7 @@ This package normalizes UTF8 text to make it look more 'pretty'. Specifically it
 * Preserves ALLCAPS for the following exceptions: `ABC`, `USA`, `USSR`, `YMCA`, `RAF`, `USAF`, `USCG`, `USMC`, `USN`
 * Corrects uppercase for words following punctuation
 * Corrects uppercase for first word in sentence
+* Converts fancy aprostrophes `‘’“”` to common `'"`
 * Removes out-of-place punctuation
 * Normalizes end of line punctuation
 
