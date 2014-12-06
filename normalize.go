@@ -196,7 +196,7 @@ func Text(b []byte) []byte {
 			case '.', '!', '?', ')', '"', 39: ok = true
 		}
 		if !ok {
-			if !unicode.isPunct(r) {
+			if !unicode.IsPunct(r) {
 				sent[len(sent) - 1] = append(sent[len(sent) - 1], '.')
 			} else {
 				for i2=last-1; i2>=0; i2-- {
@@ -206,7 +206,7 @@ func Text(b []byte) []byte {
 							sent[len(sent) - 1] = sent[len(sent) - 1][0:i2+1]
 							break
 					}
-					if unicode.IsLetter(r) || unicode.IsNumber(r) {
+					if !unicode.IsPunct(r) {
 						word[i2+1] = '.'
 						sent[len(sent) - 1] = sent[len(sent) - 1][0:i2+2]
 						break
