@@ -65,6 +65,7 @@ func Text(b []byte) []byte {
 					word = make([]rune, 0, 1)
 				}
 				para = append(para, sent)
+				sent = make([][]rune, 0, 1)
 			// Normalize aprostrophes
 			case '‘', '’': r = 39
 			case '“', '”': r = '"'
