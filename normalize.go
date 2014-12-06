@@ -43,8 +43,9 @@ func Text(b []byte) []byte {
 	para := make([][][]rune, 0, 1)
 	sent := make([][]rune, 0, 3)
 	word := make([]rune, 0, 3)
-	var r rune
+	var r, lastr rune
 	var i, w int
+	var ok bool
     for i=0; i<n; i+=w {
         r, w = utf8.DecodeRune(b[i:])
 
@@ -59,15 +60,27 @@ func Text(b []byte) []byte {
 				continue
 			// New line
 			case 10, 13:
-				if len(sent) == 0 {
-					continue
+				ok = false
+				switch lastr {
+					case '.', '!', '?': ok = true
 				}
-				if len(word) > 0 {
+				if ok {
+					if len(sent) == 0 {
+						continue
+					}
+					if len(word) > 0 {
+						sent = append(sent, word)
+						word = make([]rune, 0, 3)
+					}
+					para = append(para, sent)
+					sent = make([][]rune, 0, 3)
+				} else {
+					if len(word) == 0 {
+						continue
+					}
 					sent = append(sent, word)
 					word = make([]rune, 0, 3)
 				}
-				para = append(para, sent)
-				sent = make([][]rune, 0, 3)
 				continue
 			// Normalize aprostrophes
 			case '‘', '’': r = 39
@@ -76,6 +89,7 @@ func Text(b []byte) []byte {
 		
 		// Add rune
 		word = append(word, r)
+		lastr = r
 	}
 	if len(word) > 0 {
 		sent = append(sent, word)
@@ -85,7 +99,7 @@ func Text(b []byte) []byte {
 	}
 	
 	numpara := len(para)
-	var ok, allcaps, firstcap, othercap, anyletter, puncbefore bool
+	var allcaps, firstcap, othercap, anyletter, puncbefore bool
 	var last, i2, on int
 	for i=0; i<numpara; i++ {
 		sent = para[i]
