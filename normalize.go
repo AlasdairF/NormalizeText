@@ -191,21 +191,26 @@ func Text(b []byte) []byte {
 		word = sent[len(sent) - 1]
 		last = len(word) - 1
 		ok = false
-		switch word[last] {
+		r = word[last]
+		switch r {
 			case '.', '!', '?', ')', '"', 39: ok = true
 		}
 		if !ok {
-			for i2=last-1; i2>=0; i2-- {
-				r = word[i2]
-				switch r {
-					case '.', '!', '?', ')', '"', 39:
-						sent[len(sent) - 1] = sent[len(sent) - 1][0:i2+1]
+			if !unicode.isPunct(r) {
+				sent[len(sent) - 1] = append(sent[len(sent) - 1], '.')
+			} else {
+				for i2=last-1; i2>=0; i2-- {
+					r = word[i2]
+					switch r {
+						case '.', '!', '?', ')', '"', 39:
+							sent[len(sent) - 1] = sent[len(sent) - 1][0:i2+1]
+							break
+					}
+					if unicode.IsLetter(r) || unicode.IsNumber(r) {
+						word[i2+1] = '.'
+						sent[len(sent) - 1] = sent[len(sent) - 1][0:i2+2]
 						break
-				}
-				if unicode.IsLetter(r) || unicode.IsNumber(r) {
-					word[i2+1] = '.'
-					sent[len(sent) - 1] = sent[len(sent) - 1][0:i2+2]
-					break
+					}
 				}
 			}
 		}
