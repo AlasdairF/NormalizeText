@@ -27,7 +27,8 @@ func isException(runes []rune) bool {
 		return true
 	}
 	allroman := true
-	for _, r = range word {
+	var r rune
+	for _, r = range runes {
 		if unicode.IsLetter(r) {
 			switch r {
 				case 'I', 'V', 'X', 'M', 'C', 'D', 'L':
