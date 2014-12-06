@@ -15,8 +15,9 @@ func lowercase(runes []rune) []rune {
 
 func upperfirst(runes []rune) []rune {
 	runes[0] = unicode.ToUpper(runes[0])
-	for i, r := range runes[1:] {
-		runes[i] = unicode.ToLower(r)
+	n := len(runes)
+	for i:=1; i<n; i++ {
+		runes[i] = unicode.ToLower(runes[i])
 	}
 	return runes
 }
