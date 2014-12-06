@@ -229,7 +229,7 @@ func Text(b []byte) []byte {
 	}
 	
 	// Write it back
-	buf := bytes.NewBuffer(make([]byte, 0, 20))
+	buf = bytes.NewBuffer(make([]byte, 0, 20))
 	for i, sent = range para {
 		if i > 0 {
 			buf.WriteByte(10)
