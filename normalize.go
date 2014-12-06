@@ -41,8 +41,8 @@ func Text(b []byte) []byte {
 		return b
 	}
 	para := make([][][]rune, 0, 1)
-	sent := make([][]rune, 0, 1)
-	word := make([]rune, 0, 1)
+	sent := make([][]rune, 0, 3)
+	word := make([]rune, 0, 3)
 	var r rune
 	var i, w int
     for i=0; i<n; i+=w {
@@ -50,12 +50,12 @@ func Text(b []byte) []byte {
 
 		switch r {
 			// New word
-			case ' ':
+			case ' ', 9:
 				if len(word) == 0 {
 					continue
 				}
 				sent = append(sent, word)
-				word = make([]rune, 0, 1)
+				word = make([]rune, 0, 3)
 				continue
 			// New line
 			case 10, 13:
@@ -64,10 +64,10 @@ func Text(b []byte) []byte {
 				}
 				if len(word) > 0 {
 					sent = append(sent, word)
-					word = make([]rune, 0, 1)
+					word = make([]rune, 0, 3)
 				}
 				para = append(para, sent)
-				sent = make([][]rune, 0, 1)
+				sent = make([][]rune, 0, 3)
 				continue
 			// Normalize aprostrophes
 			case '‘', '’': r = 39
