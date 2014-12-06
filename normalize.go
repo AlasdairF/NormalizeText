@@ -1,7 +1,6 @@
 package normalize
 
 import (
- "html"
  "bytes"
  "unicode"
  "unicode/utf8"
@@ -33,7 +32,7 @@ func isException(runes []rune) bool {
 	return false
 }
 
-func Text(b []byte) string {
+func Text(b []byte) []byte {
 	
 	// Convert to slice of runes
 	n := len(b)
@@ -227,6 +226,6 @@ func Text(b []byte) string {
 			}
 		}
 	}
-	return buf.String()
+	return buf.Bytes()
 	
 }
