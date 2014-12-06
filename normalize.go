@@ -79,6 +79,26 @@ func Text(b []byte) []byte {
 	if len(sent) > 0 {
 		para = append(para, sent)
 	}
+	
+	// Write it back
+	buf := bytes.NewBuffer(make([]byte, 0, 20))
+	for i, sent = range para {
+		if i > 0 {
+			buf.WriteByte(10)
+			if len(sent) > 10 {
+				buf.WriteByte(10)
+			}
+		}
+		for i2, word = range sent {
+			if i2 > 0 {
+				buf.WriteByte(' ')
+			}
+			for _, r = range word {
+				buf.WriteRune(r)
+			}
+		}
+	}
+	return buf.Bytes()
 
 	numpara := len(para)
 	
