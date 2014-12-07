@@ -49,7 +49,7 @@ func isException(runes []rune) bool {
 	return false
 }
 
-func Text(b []byte) []byte {
+func Text(b []byte, stripSpeechmarks bool) []byte {
 	
 	// Convert to slice of runes
 	n := len(b)
@@ -100,7 +100,30 @@ func Text(b []byte) []byte {
 				continue
 			// Normalize aprostrophes
 			case '‘', '’': r = 39
-			case '“', '”': r = '"'
+			// Normalize speechmarks, or stripSpeechmarks
+			case '“', '”', '"':
+				if stripSpeechmarks {
+					continue
+				}
+				r = '"'
+			// em-dash should always be its own word
+			case '—':
+				if len(word) > 0 {
+					sent = append(sent, word)
+				}
+				append(sent, []rune{'—'})
+				word = make([]rune, 0, 3)
+				continue
+		}
+		
+		if r > 127 {
+			switch r {
+				 case 'Æ': r = 'e'
+				 case 'æ': r = 'e'
+				 case 'Œ': append(word, 'o'); r = 'e'
+				 case 'œ': append(word, 'o'); r = 'e'
+				 case 'ﬁ': append(word, 'f'); r = 'i'
+				}
 		}
 		
 		// Add rune
@@ -161,7 +184,7 @@ func Text(b []byte) []byte {
 				allcaps = false
 				firstcap = false
 			}
-			for _, r = range word {
+			for _, r = range word[1:] {
 				if unicode.IsLetter(r) {
 					anyletter = true
 					if unicode.IsUpper(r) || unicode.IsTitle(r) {
