@@ -111,7 +111,7 @@ func Text(b []byte, stripSpeechmarks bool) []byte {
 				if len(word) > 0 {
 					sent = append(sent, word)
 				}
-				append(sent, []rune{'—'})
+				sent = append(sent, []rune{'—'})
 				word = make([]rune, 0, 3)
 				continue
 		}
@@ -120,9 +120,9 @@ func Text(b []byte, stripSpeechmarks bool) []byte {
 			switch r {
 				 case 'Æ': r = 'e'
 				 case 'æ': r = 'e'
-				 case 'Œ': append(word, 'o'); r = 'e'
-				 case 'œ': append(word, 'o'); r = 'e'
-				 case 'ﬁ': append(word, 'f'); r = 'i'
+				 case 'Œ': word = append(word, 'o'); r = 'e'
+				 case 'œ': word = append(word, 'o'); r = 'e'
+				 case 'ﬁ': word = append(word, 'f'); r = 'i'
 				}
 		}
 		
