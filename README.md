@@ -20,10 +20,16 @@ This package normalizes UTF8 text to make it look more 'pretty'. Specifically it
 * Removes out-of-place punctuation
 * Normalizes end of line punctuation
 
+##Parameters
+
+There are two parameters. The first parameter is the slice of bytes to process. The second parameter is a boolean value for whether to strip speech marks or not. OCR often has trouble with speechmarks so I find it is sometimes worth removing the speechmarks entirely, if the cosmetic appearance is more important than the accuracy to the original.
+
 ##Usage
 
-    b := normalize.Text([]byte(" this is .some ugLy TEXT. it’s not formatted very well at all    "))
-    fmt.Println(string(b))
+    stripSpeechmarks := false
+    before := []byte(" this is .some ugLy TEXT. it’s not formatted very well at all    ")
+    after := normalize.Text(before, stripSpeechmarks)
+    fmt.Println(string(after))
     // This is some ugly text. It's not formatted very well at all.
 
 ##See Also
