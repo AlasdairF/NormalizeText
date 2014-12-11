@@ -27,10 +27,10 @@ There are two parameters. The first parameter is the slice of bytes to process. 
 ##Usage
 
     stripSpeechmarks := false
-    before := []byte(" this is .some ugLy TEXT. it’s not formatted very well at all    ")
+    before := []byte("   unknOwn to   Fred,  this is .some ugLy TEXT. it’s not  formatted very  nicely at all    ")
     after := normalize.Text(before, stripSpeechmarks)
     fmt.Println(string(after))
-    // This is some ugly text. It's not formatted very well at all.
+    // Unknown to Fred, this is some ugly text. It's not formatted very nicely at all.
 
 ##See Also
   
