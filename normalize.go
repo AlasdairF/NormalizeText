@@ -1,7 +1,7 @@
 package normalize
 
 import (
- "github.com/AlasdairF/Buffer"
+ "github.com/AlasdairF/Custom"
  "unicode"
  "unicode/utf8"
 )
@@ -268,7 +268,7 @@ func Text(b []byte, stripSpeechmarks bool) []byte {
 	}
 	
 	// Write it back
-	buf := buffer.NewBuffer(32)
+	buf := custom.NewBuffer(1024)
 	for i, sent = range para {
 		if i > 0 {
 			buf.WriteByte(10)
