@@ -269,6 +269,7 @@ func Text(b []byte, stripSpeechmarks bool) []byte {
 	
 	// Write it back
 	buf := custom.NewBuffer(1024)
+	defer buf.Close()
 	for i, sent = range para {
 		if i > 0 {
 			buf.WriteByte(10)
@@ -285,6 +286,6 @@ func Text(b []byte, stripSpeechmarks bool) []byte {
 			}
 		}
 	}
-	return buf.Bytes()
+	return buf.BytesCopy()
 
 }
